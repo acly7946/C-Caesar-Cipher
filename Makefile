@@ -2,7 +2,7 @@
 ENCODER= ceasar
 DECODER= unceasar
 TARGETS=$(ENCODER) $(DECODER)
-SRC= main.c encode.c decode.c
+SRC= main.c ceasar.c
 OBJS= $(SRC:.c=.o)
 
 # CFLAGS
