@@ -1,7 +1,6 @@
 /* main.c */
 
-#include "encode.h"
-#include "decode.h"
+#include "ceasar.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,7 +45,7 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'i':
-				if (!(options.input = fopen(optarg, "r")) )
+				if(!(options.input = fopen(optarg, "r")))
 				{
 					perror(ERROR_INPUT_ARG);
 					exit(EXIT_FAILURE);
@@ -54,7 +53,7 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'o':
-				if (!(options.output = fopen(optarg, "w")) )
+				if(!(options.output = fopen(optarg, "w")))
 				{
 					perror(ERROR_OUTPUT_ARG);
 					exit(EXIT_FAILURE);
@@ -70,11 +69,11 @@ int main(int argc, char *argv[])
 	// TODO: Program does stuff here
 	if(strcmp(basename(argv[0]), "ceasar") == 0)
 	{
-		printf("beep");
+		endecode(options.input, options.output);
 	}
 	else
 	{
-		printf("boop");
+		endecode(options.input, options.output);
 	}
 
 	return EXIT_SUCCESS;
