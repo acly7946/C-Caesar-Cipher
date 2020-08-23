@@ -5,6 +5,6 @@
 
 #include <stdio.h>
 
-void endecode(FILE *input, FILE *output);
+void shift(FILE *input, FILE *output, int key);
 
 #endif

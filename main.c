@@ -9,9 +9,10 @@
 #include <errno.h>
 #include <getopt.h>
 
-#define OPTSTR "hi:o:"
+#define OPTSTR "hi:o:s:"
 #define ERROR_INPUT_ARG "--input"
 #define ERROR_OUTPUT_ARG "--output"
+#define ERROR_SHIFT_ARG "--shift"
 
 extern int errno;
 extern char *optarg;
@@ -21,6 +22,7 @@ typedef struct
 {
 	FILE *input;
 	FILE *output;
+	int shift;
 }	options_t;
 
 void usage(FILE *stream, char *programName);
@@ -28,12 +30,13 @@ void usage(FILE *stream, char *programName);
 int main(int argc, char *argv[])
 {
 	int opt;
-    options_t options = {stdin, stdout};
+    options_t options = {stdin, stdout, 13};
 	static struct option long_options[] =
 	{
 		{"help", no_argument, NULL, 'h'},
 		{"input", required_argument, NULL, 'i'},
 		{"output", required_argument, NULL, 'o'},
+		{"shift", required_argument, NULL, 'h'},
 	};
 
     while ((opt = getopt_long(argc, argv, OPTSTR, long_options, NULL)) != EOF)
@@ -60,6 +63,15 @@ int main(int argc, char *argv[])
 				}
 				break;
 
+			case 's':
+				if(!(options.shift = atoi(optarg)))
+				{
+					errno = 22;
+					perror(ERROR_SHIFT_ARG);
+					exit(EXIT_FAILURE);
+				}
+				break;
+
 			default:// ? and :
 				usage(stderr, basename(argv[0]));
 				break;
@@ -69,11 +81,11 @@ int main(int argc, char *argv[])
 	// TODO: Program does stuff here
 	if(strcmp(basename(argv[0]), "ceasar") == 0)
 	{
-		endecode(options.input, options.output);
+		shift(options.input, options.output, options.shift);
 	}
 	else
 	{
-		endecode(options.input, options.output);
+		shift(options.input, options.output, -options.shift);
 	}
 
 	return EXIT_SUCCESS;
@@ -84,7 +96,8 @@ void usage(FILE *stream, char *programName)
 	char *usageFormat =
 	"  -h, --help      Show help message and exit\n"
 	"  -i, --input     File to use as input (default: stdin)\n"
-	"  -o, --output    File to use as output (default: stdout)\n";
+	"  -o, --output    File to use as output (default: stdout)\n"
+	"  -s, --shift     Amount of characters to shift by (default: 13)\n";
 
 	char *usage = malloc(strlen("Usage: ") + strlen(programName) + strlen(" [OPTIONS]\n\n") + strlen(usageFormat) + 1);
 	sprintf(usage, "Usage: %s [OPTIONS]\n\n%s", programName, usageFormat);
