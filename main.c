@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 				break;
 
 			case 's':
-				if(!(options.shift = atoi(optarg)))
+				if(!(sscanf(optarg, "%d", &options.shift)))
 				{
 					errno = 22;
 					perror(ERROR_SHIFT_ARG);
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	// TODO: Program does stuff here
+	// ceasar/unceasar
 	if(strcmp(basename(argv[0]), "ceasar") == 0)
 	{
 		shift(options.input, options.output, options.shift);

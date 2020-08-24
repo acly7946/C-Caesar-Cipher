@@ -11,11 +11,11 @@ void shift(FILE *input, FILE *output, int key)
 		{
 			if((c >= 'A') & (c <= 'Z')) // If uppercase
 			{
-				c = (c + key - 65) % 26 + 65;
+				c = (c + key - 'A') % 26 + 'A';
 			}
 			else
 			{
-				c = (c + key - 97) % 26 + 97;
+				c = (c + key - 'a') % 26 + 'a';
 			}
 		}
 		fprintf(output, "%c", c);
