@@ -1,8 +1,8 @@
 # Files
-ENCODER= ceasar
-DECODER= unceasar
+ENCODER= caesar
+DECODER= uncaesar
 TARGETS=$(ENCODER) $(DECODER)
-SRC= main.c ceasar.c
+SRC= main.c caesar.c
 OBJS= $(SRC:.c=.o)
 
 # CFLAGS

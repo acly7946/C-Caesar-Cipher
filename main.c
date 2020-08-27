@@ -1,6 +1,6 @@
 /* main.c */
 
-#include "ceasar.h"
+#include "caesar.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	// ceasar/unceasar
-	if(strcmp(basename(argv[0]), "ceasar") == 0)
+	// caesar/uncaesar
+	if(strcmp(basename(argv[0]), "caesar") == 0)
 	{
 		shift(options.input, options.output, options.shift);
 	}
