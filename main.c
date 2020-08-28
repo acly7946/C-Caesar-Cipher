@@ -78,6 +78,16 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	// Filenames without option considered input
+	if (optind < argc)
+	{
+		if(!(options.input = fopen(argv[optind++], "r")))
+		{
+			perror(ERROR_INPUT_ARG);
+			exit(EXIT_FAILURE);
+		}
+    }
+
 	// caesar/uncaesar
 	if(strcmp(basename(argv[0]), "caesar") == 0)
 	{
@@ -85,7 +95,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		shift(options.input, options.output, -options.shift);
+		shift(options.input, options.output, 26 - options.shift);
 	}
 
 	return EXIT_SUCCESS;
